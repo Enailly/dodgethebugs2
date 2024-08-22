@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://cc8d4ltnpajuc"]
+
+[ext_resource type="Script" path="res://dodgethebugs-main/scripts/player.gd" id="1_uodiq"]
+[ext_resource type="Texture2D" uid="uid://dbgky55i42yhf" path="res://dodgethebugs-main/assets/meusAssets/6.png" id="2_dxyep"]
+[ext_resource type="Texture2D" uid="uid://cln4oakdy8pnh" path="res://dodgethebugs-main/assets/meusAssets/3.png" id="3_f04yk"]
+[ext_resource type="Texture2D" uid="uid://sadpa22ef8ad" path="res://dodgethebugs-main/assets/meusAssets/8.png" id="4_7h0p3"]
+[ext_resource type="Texture2D" uid="uid://cij4yqp1ytre7" path="res://dodgethebugs-main/assets/meusAssets/4.png" id="5_rdphu"]
+[ext_resource type="Texture2D" uid="uid://chynkilies2e1" path="res://dodgethebugs-main/assets/meusAssets/9.png" id="6_spay1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wolxs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dxyep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f04yk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7h0p3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_rdphu")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_spay1")
+}],
+"loop": true,
+"name": &"move_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dxyep")
+}],
+"loop": true,
+"name": &"move_up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d4hov"]
+radius = 32.0156
+
+[node name="player" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_uodiq")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_wolxs")
+animation = &"move_up"
+autoplay = "idle"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 5)
+shape = SubResource("CircleShape2D_d4hov")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
